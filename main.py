@@ -23,7 +23,7 @@ first_input_prompt=PromptTemplate(
 )
 
 topic_memory = ConversationBufferMemory(input_key='topic', memory_key='chat_history')
-history_memory = ConversationBufferMemory(input_key='history', memory_key='chat_history')
+history_memory = ConversationBufferMemory(input_key='topic', memory_key='chat_history')
 application_memory = ConversationBufferMemory(input_key='application', memory_key='description_history')
 
 
@@ -34,8 +34,8 @@ chain1=LLMChain(
 
 
 second_input_prompt=PromptTemplate(
-    input_variables=['history'],
-    template="when was the significance of {history} and impact on world "
+    input_variables=['topic'],
+    template="when was the significance and history of {topic} and impact on world "
 )
 
 chain2=LLMChain(
@@ -44,7 +44,7 @@ chain2=LLMChain(
 
 third_input_prompt=PromptTemplate(
     input_variables=['application'],
-    template="Impact of  {application} in the current world and application of it"
+    template="What is the {application} in the current world "
 )
 chain3=LLMChain(llm=llm,prompt=third_input_prompt,verbose=True,output_key='history_application',memory=application_memory)
 
